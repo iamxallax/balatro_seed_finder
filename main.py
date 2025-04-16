@@ -22,9 +22,9 @@ def scy(input):
 def check_skip_tag(num, reference=None):
     if not reference:
         if num == 1:
-            reference = pyautogui.screenshot(region=(561, 812, 76, 68))
+            reference = pyautogui.screenshot(region=(scx(561), scy(812), scx(76), scy(68)))
         if num == 2:
-            reference = pyautogui.screenshot(region=(914, 873, 78, 67))
+            reference = pyautogui.screenshot(region=(scx(914), scy(873), scx(78), scy(67)))
     histo1 = reference.convert("RGB").histogram()
     og_histo = PIL.Image.open('tarot_icon.png' if num == 1 else 'tarot_icon_2.png').convert("RGB").histogram()
 
@@ -37,16 +37,16 @@ def check_skip_tag(num, reference=None):
 
 def click_skip(num):
     if num == 1:
-        pyautogui.moveTo(730, 840)
+        pyautogui.moveTo(scx(730), scy(840))
     elif num == 2:
-        pyautogui.moveTo(1051, 840)
+        pyautogui.moveTo(scx(1051), scy(840))
     pyautogui.click()
 
 def reset():
     pyautogui.keyDown('r')
     time.sleep(0.4)
     while True:
-        reference = pyautogui.screenshot(region=(1300, 540, 160, 230))
+        reference = pyautogui.screenshot(region=(scx(1300), scy(540), scx(160), scy(230)))
         histo1 = reference.convert("RGB").histogram()
         og_histo = PIL.Image.open('green.png').convert("RGB").histogram()
 
@@ -57,7 +57,7 @@ def reset():
             break
 
 def soul_card():
-    images = [pyautogui.screenshot(region=(i * 180 + 600, 660, 175, 240)) for i in range(5)]
+    images = [pyautogui.screenshot(region=(scx(i * 180 + 600), scy(660), scx(175), scy(240))) for i in range(5)]
     histos = [reference.convert("RGB").histogram() for reference in images]
     og_histo = PIL.Image.open('soul.png').convert("RGB").histogram()
 
@@ -74,7 +74,7 @@ while True:
     if check_skip_tag(1):
         click_skip(1)
         time.sleep(2)
-        img = pyautogui.screenshot(region=(600, 630, 884, 261))
+        img = pyautogui.screenshot(region=(scx(600), scy(630), scx(884), scy(261)))
         img.save(f'pack{counter}.png')
         if soul_card():
             quit()
@@ -83,7 +83,7 @@ while True:
         time.sleep(0.4)
         click_skip(2)
         time.sleep(2)
-        img = pyautogui.screenshot(region=(600, 630, 884, 261))
+        img = pyautogui.screenshot(region=(scx(600), scy(630), scx(884), scy(261)))
         img.save(f'pack{counter}.png')
         if soul_card():
             quit()
